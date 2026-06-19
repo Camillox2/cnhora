@@ -21,6 +21,12 @@
     },
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "37c38aab-49ee-4061-b078-9d82cfcb190c"
+      }
+    },
+    "owner": "vitorcamillo"
   }
 }
