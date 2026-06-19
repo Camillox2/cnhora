@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { colors, spacing, radius, shadow } from '../theme';
 import { instructors, Instructor, Category } from '../data';
+import { SearchIcon, MapPinIcon, ShieldCheckIcon, StarIcon } from '../components/Icons';
 
 interface Props {
   onNavigate: (screen: string, params?: any) => void;
@@ -38,15 +39,20 @@ function InstructorCard({
             </Text>
             {instructor.verified && (
               <View style={styles.verifiedBadge}>
-                <Text style={styles.verifiedText}>✓ Verificado</Text>
+                <ShieldCheckIcon size={10} color={colors.success} />
+                <Text style={styles.verifiedText}>Verificado</Text>
               </View>
             )}
           </View>
-          <Text style={styles.neighborhood}>
-            📍 {instructor.neighborhood} · {instructor.experience} anos exp.
-          </Text>
+          <View style={styles.neighborhoodRow}>
+            <MapPinIcon size={12} color={colors.textSecondary} />
+            <Text style={styles.neighborhood}>
+              {instructor.neighborhood} · {instructor.experience} anos exp.
+            </Text>
+          </View>
           <View style={styles.ratingRow}>
-            <Text style={styles.ratingStars}>★ {instructor.rating.toFixed(1)}</Text>
+            <StarIcon size={13} color="#F59E0B" filled />
+            <Text style={styles.ratingStars}>{instructor.rating.toFixed(1)}</Text>
             <Text style={styles.ratingCount}>({instructor.reviewCount} avaliações)</Text>
           </View>
         </View>
@@ -99,7 +105,7 @@ export default function SearchScreen({ onNavigate }: Props) {
 
       {/* Search Bar */}
       <View style={styles.searchContainer}>
-        <Text style={styles.searchIcon}>🔍</Text>
+        <SearchIcon size={18} color={colors.textLight} />
         <TextInput
           style={styles.searchInput}
           placeholder="Nome ou bairro..."
@@ -173,7 +179,7 @@ export default function SearchScreen({ onNavigate }: Props) {
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           <View style={styles.empty}>
-            <Text style={styles.emptyEmoji}>😔</Text>
+            <SearchIcon size={48} color={colors.textLight} />
             <Text style={styles.emptyText}>Nenhum instrutor encontrado</Text>
             <Text style={styles.emptySub}>Tente ajustar os filtros</Text>
           </View>
@@ -254,13 +260,13 @@ const styles = StyleSheet.create({
   nameRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, flexWrap: 'wrap' },
   name: { fontSize: 15, fontWeight: '700', color: colors.text, flex: 1 },
   verifiedBadge: {
+    flexDirection: 'row', alignItems: 'center', gap: 3,
     backgroundColor: colors.successLight,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 4,
+    paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4,
   },
   verifiedText: { fontSize: 10, color: colors.success, fontWeight: '600' },
-  neighborhood: { fontSize: 12, color: colors.textSecondary, marginTop: 3 },
+  neighborhoodRow: { flexDirection: 'row', alignItems: 'center', gap: 3, marginTop: 3 },
+  neighborhood: { fontSize: 12, color: colors.textSecondary },
   ratingRow: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 3 },
   ratingStars: { fontSize: 13, color: '#F59E0B', fontWeight: '700' },
   ratingCount: { fontSize: 12, color: colors.textLight },
@@ -291,7 +297,7 @@ const styles = StyleSheet.create({
   priceLabel: { fontSize: 10, color: colors.textLight },
   price: { fontSize: 18, fontWeight: '800', color: colors.primary },
   empty: { alignItems: 'center', paddingTop: 60 },
-  emptyEmoji: { fontSize: 48, marginBottom: spacing.md },
-  emptyText: { fontSize: 16, fontWeight: '600', color: colors.text },
+  emptyText: { fontSize: 16, fontWeight: '600', color: colors.text, marginTop: spacing.md },
   emptySub: { fontSize: 14, color: colors.textSecondary, marginTop: 4 },
+  searchIcon: {},
 });
